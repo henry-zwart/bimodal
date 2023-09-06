@@ -1,0 +1,41 @@
+repos:
+# Standard hooks.
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.4.0
+  hooks:
+  - id: check-added-large-files
+  - id: check-case-conflict
+  - id: check-merge-conflict
+  - id: check-toml
+  - id: check-yaml
+    args: [--unsafe]  # reqd cos' gitlab yaml uses extensions
+
+# Ensure we have good commit messages.
+- repo: https://github.com/commitizen-tools/commitizen
+  rev: 3.2.2
+  hooks:
+  - id: commitizen
+    stages: [commit-msg]
+
+# Clean out results from notebooks.
+- repo: https://github.com/kynan/nbstripout
+  rev: 0.6.1
+  hooks:
+  - id: nbstripout
+
+# Check poetry locks is consistent.
+- repo: https://github.com/python-poetry/poetry
+  rev: 1.5.1    # add version here
+  hooks:
+  - id: poetry-check
+
+# Let's just use local stuff if we already install it.
+- repo: local
+  hooks:
+  - id: lint
+    name: lint
+    entry: make lint
+    types: [python]
+    language: system
+    pass_filenames: false
+    
