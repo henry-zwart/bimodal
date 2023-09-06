@@ -1,0 +1,11 @@
+md5: 70f2e120cd1f72ce355ae22398ce8620
+frozen: true
+deps:
+- checksum: '"64f69135-1a7c1c4"'
+  size: 27771332
+  path: 
+    https://www.transportprojects.org.nz/assets/CounterData/2020_ecocounter_data_20230905140803.csv
+outs:
+- md5: f6d802107d7f0641c5f13cf66c1ed4a2
+  size: 27771332
+  path: 2020_ecocounter_data_20230905140803.csv
