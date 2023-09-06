@@ -1,14 +1,14 @@
 MAKEFLAGS += --warn-undefined-variables
 SHELL = /bin/bash -o pipefail
 .DEFAULT_GOAL := all
-SOURCES = src tests
+SOURCES = python/src tests
 
 .PHONY: all  ## Check everything that will be done in CI
 all: sync lint typecheck test
 
 .PHONY: test  ## Run all the tests with coverage.
 test:
-	poetry run py.test --cov=src tests -v
+	poetry run py.test --cov=python/src tests -v
 
 .PHONY: testfailed  ## Run tests that failed last time.
 testfailed:
@@ -35,7 +35,7 @@ lint:
 
 .PHONY: typecheck  ## Run mypy for typechecking
 typecheck:
-	poetry run mypy src/ tests/
+	poetry run mypy python/src/ tests/
 
 .PHONY: sync  ## Synchronize packages and data.
 sync:
