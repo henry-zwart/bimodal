@@ -1,0 +1,5 @@
+outs:
+- md5: 0fdf4009f15ade1729614e1de1c637ed.dir
+  size: 69927909
+  nfiles: 6
+  path: clean_counter
