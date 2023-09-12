@@ -6,6 +6,9 @@ authors = ["Henry Zwart <henrybzwart@gmail.co.nz>"]
 readme = "README.md"
 packages = [{include = "welly_bike_data", from = "python/src"}]
 
+[tool.poetry.scripts]
+bikedata = "welly_bike_data.cli:app"
+
 [tool.poetry.dependencies]
 python = "^3.10"
 typer = ">=0.6.0"

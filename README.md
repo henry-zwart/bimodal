@@ -8,7 +8,8 @@ We are currently tracking annual raw count data files in CSV format from 2018-20
 
 ## Plan
 
-- [ ] Set up data sources
+- [x] Set up data sources
+- [x] Move data into a sqlite database
 - [ ] Explore data
     - What's the uptick per-month across the years?
     - Have the times people are cycling changed, or stayed the same? e.g. have 7am numbers gone up while others have stayed consistent?
@@ -26,8 +27,21 @@ We are currently tracking annual raw count data files in CSV format from 2018-20
         - Sun?
         - Does the daily number of trips change?
         - Does the time people travel change? e.g. if its raining, do people travel later? Earlier?
-- [ ] Move data into a sqlite database
 - [ ] ...
+
+
+## Database
+
+**Tables**
+- Site
+    - site_id:          INTEGER
+    - site_name:        TEXT
+- Count
+    - count_id:         INTEGER
+    - site_name:        TEXT
+    - rec_time:         TEXT
+    - count_incoming:   INTEGER
+    - count_outgoing:   TEXT
 
 
 ## Ideas
