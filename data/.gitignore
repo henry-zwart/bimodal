@@ -1,1 +1,5 @@
-/clean_counter
+/counter_data.parquet
+/weather_rain.parquet
+/weather_wind.parquet
+/weather_temp.parquet
+/db.sqlite

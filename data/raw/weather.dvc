@@ -1,0 +1,5 @@
+outs:
+- md5: 7ed73c48a321fd2d5b8efbec20f90f1f.dir
+  size: 4549145
+  nfiles: 3
+  path: weather

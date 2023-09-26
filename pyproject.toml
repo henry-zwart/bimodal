@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "welly-bike-data"
+name = "bimodal"
 version = "0.1.0"
 description = "Analysis and visualisation of bike counter data in Wellington"
 authors = ["Henry Zwart <henrybzwart@gmail.co.nz>"]
 readme = "README.md"
-packages = [{include = "welly_bike_data", from = "python/src"}]
+packages = [{include = "bimodal", from = "python/src"}]
 
 [tool.poetry.scripts]
-bikedata = "welly_bike_data.cli:app"
+bimodal = "bimodal.cli:app"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -17,9 +17,11 @@ pydantic = "^2.3"
 pydantic-settings = "^2.0"
 alive-progress = "^3.0.0"
 rich = "^13.5"
-polars = "^0.18"
+polars = "^0.19"
 numpy = "^1.25"
 pymc = "^5"
+seaborn = "^0.12"
+pyarrow = "^8.0"
 
 [tool.poetry.group.dev.dependencies]
 mock = "^4.0.3"
@@ -57,7 +59,7 @@ name = "cz_conventional_commits"
 version = "0.1.0"
 version_files = [
     "pyproject.toml:version",
-    "src/welly_bike_data/__init__.py:__version__",
+    "src/bimodal/__init__.py:__version__",
 ]
 
 [tool.ruff]
@@ -113,7 +115,7 @@ src = ['src', 'tests']
 "cli.py" = ["S105"]
 
 # typer does some stuff that normally would be evil.
-# "#src/welly_bike_data/cli.py" = ['B008', 'FBT001', 'FBT003']
+# "#src/bimodal/cli.py" = ['B008', 'FBT001', 'FBT003']
 
 [tool.mypy]
 python_version = "3.10"

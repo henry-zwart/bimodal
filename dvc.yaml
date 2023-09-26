@@ -1,0 +1,21 @@
+stages:
+  preprocess-data:
+    cmd: poetry run bimodal preprocess-data
+    deps: 
+      - data/raw
+      - python/src/bimodal/preprocessing.py
+    outs:
+      - data/counter_data.parquet
+      - data/weather_rain.parquet
+      - data/weather_wind.parquet
+      - data/weather_temp.parquet
+
+  build-db:
+    cmd: poetry run bimodal build-db data/
+    deps:
+      - data/counter_data.parquet
+      - data/weather_rain.parquet
+      - data/weather_wind.parquet
+      - data/weather_temp.parquet
+    outs:
+      - data/db.sqlite

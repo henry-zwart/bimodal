@@ -1,0 +1,44 @@
+schema: '2.0'
+stages:
+  preprocess-data:
+    cmd: poetry run bimodal preprocess-data
+    deps:
+    - path: data/raw
+      md5: 7216c942f9f6d8d232b6f19276d06d19.dir
+      size: 170603566
+      nfiles: 18
+    - path: python/src/bimodal/preprocessing.py
+      md5: 7449925902027b1c22ed32b2cc186a9f
+      size: 4231
+    outs:
+    - path: data/counter_data.parquet
+      md5: 49dd59cdd4800f3d1d31cd5d7d669c60
+      size: 5312497
+    - path: data/weather_rain.parquet
+      md5: 2eb17b3be272e8a248fb8d83351aea1b
+      size: 13725
+    - path: data/weather_temp.parquet
+      md5: baef52ab1f8ae00fc3606745baee9bc8
+      size: 524729
+    - path: data/weather_wind.parquet
+      md5: 01f8cb4c3e91b75927514df8afc358c1
+      size: 535929
+  build-db:
+    cmd: poetry run bimodal build-db data/
+    deps:
+    - path: data/counter_data.parquet
+      md5: 49dd59cdd4800f3d1d31cd5d7d669c60
+      size: 5312497
+    - path: data/weather_rain.parquet
+      md5: 2eb17b3be272e8a248fb8d83351aea1b
+      size: 13725
+    - path: data/weather_temp.parquet
+      md5: baef52ab1f8ae00fc3606745baee9bc8
+      size: 524729
+    - path: data/weather_wind.parquet
+      md5: 01f8cb4c3e91b75927514df8afc358c1
+      size: 535929
+    outs:
+    - path: data/db.sqlite
+      md5: b39a999e4ef9885c8bf2783ce673e859
+      size: 87625728
