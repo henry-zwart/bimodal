@@ -31,6 +31,14 @@ We are currently tracking annual raw count data files in CSV format from 2018-20
 
 
 ## Database
+Tables include:
+- Site: site id and name as recorded in the count data
+- Count: hourly incoming (toward CBD) and outgoing (away from CBD) counts at each location
+- Rain: daily rainfall measurements in millimeters
+- Wind: hourly speed and direction (with standard dev. included)
+- Temperature: hourly min/max/avg temperature, and percentage relative humidity measurements
+
+Weather measurements taken from Kelburn weather station, gathered through NIWA API.
 
 **Tables**
 - Site
@@ -39,9 +47,44 @@ We are currently tracking annual raw count data files in CSV format from 2018-20
 - Count
     - count_id:         INTEGER
     - site_name:        TEXT
-    - rec_time:         TEXT
+    - record_time:      TEXT
     - count_incoming:   INTEGER
     - count_outgoing:   TEXT
+    - year:             INTEGER
+    - month:            INTEGER
+    - day:              INTEGER
+    - hour:             INTEGER
+    - weekday:          INTEGER
+- Rain
+    - rain_record_id:   INTEGER
+    - record_time:      TEXT
+    - amount:           FLOAT
+    - year:             INTEGER 
+    - month:            INTEGER
+    - day:              INTEGER
+- Wind
+    - wind_record_id:   INTEGER
+    - record_time:      TEXT
+    - direction_deg:    INTEGER
+    - speed_ms:         FLOAT
+    - direction_std:    FLOAT
+    - speed_std:        FLOAT
+    - period:           FLOAT
+    - year:             INTEGER
+    - month:            INTEGER
+    - day:              INTEGER
+    - hour:             INTEGER
+- Temperature
+    - temperature_record_id:    INTEGER
+    - record_time:              TEXT
+    - temp_max_c:               FLOAT
+    - temp_min_c:               FLOAT
+    - temp_avg_c:               FLOAT
+    - rel_humidity_perc:        INTEGER
+    - year:                     INTEGER
+    - month:                    INTEGER
+    - day:                      INTEGER
+    - hour:                     INTEGER
 
 
 ## Ideas
