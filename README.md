@@ -1,8 +1,27 @@
 # Analysis and visualisation of bike counter data in Wellington
 
+## Getting started
+
+1. Dependencies:
+
+    - Poetry
+    - Python 3.10. Ideally environment-managed by conda or similar tool.
+
+2. Set up poetry environment
+
+    `poetry env use 'which python'` (replace quotes with backticks `)
+
+    `poetry install --sync --with dvc` and optionally `--with notebook`
+
+3. Download data, preprocess, and build database
+
+    `poetry run dvc repro`
+
+Created data assets are located in `/data`. Key ones are the database (db.sqlite), the preprocessed count data csv (count_data.csv), and the weather data split by weather type (weather_wind/rain/temp.csv).
+
 ## Data Sources
 
-Data is imported from the [WCC transport projects website](https://www.transportprojects.org.nz/cycle-data/#showdata/electronic/all/2023-08-01) by DVC. It does look as though the file URLs may be changed occasionally, so this approach might need to change.
+Data is imported from the [WCC transport projects website](https://www.transportprojects.org.nz/cycle-data/#showdata/electronic/all/2023-08-01) by DVC. It looks as though the file URLs are changed occasionally, so this approach may need to change, or the URLs we point to updated periodically.
 
 We are currently tracking annual raw count data files in CSV format from 2018-2023.
 
