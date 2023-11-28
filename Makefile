@@ -14,6 +14,11 @@ testfailed:
 pre:
 	poetry run pre-commit run -a
 
+.PHONY: lint  ## lint all sources
+lint:
+	poetry run ruff $(SOURCES)
+	poetry run black $(SOURCES) --check --diff
+
 .PHONY: help  ## Display this message
 help:
 	@grep -E \
