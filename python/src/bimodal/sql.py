@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS rain (
     amount FLOAT NOT NULL,
     year INTEGER NOT NULL,
     month INTEGER NOT NULL,
-    day INTEGER NOT NULL
+    day INTEGER NOT NULL,
+    hour INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS temperature (
@@ -97,8 +98,9 @@ INSERT INTO rain
     amount,
     year,
     month,
-    day
-) VALUES (?, ?, ?, ?, ?)
+    day,
+    hour
+) VALUES (?, ?, ?, ?, ?, ?)
 """
 
 INSERT_TEMPERATURE = """

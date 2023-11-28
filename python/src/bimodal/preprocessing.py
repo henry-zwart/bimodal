@@ -118,8 +118,6 @@ def preprocess_weather_data(from_dir: Path, save_dir: Path):
                 pl.col("record_time").dt.hour().alias("hour"),
             )
         )
-        if weather_type == "rain":
-            df = df.drop("hour")
         df.write_parquet(save_dir / f"weather_{weather_type}.parquet")
 
     # clean up interim csvs

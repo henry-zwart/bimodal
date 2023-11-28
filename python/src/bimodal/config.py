@@ -15,7 +15,7 @@ WEATHER_TYPES = ["wind", "rain", "temp"]
 
 WEATHER_DROP_COLS = {
     "wind": ["Station", "Freq"],
-    "rain": ["Station", "SofG", "Deficit(mm)", "Runoff(mm)", "Period(Hrs)", "Freq"],
+    "rain": ["Station", "Period(Hrs)", "Freq"],
     "temp": [
         "Station",
         "Period(Hrs)",

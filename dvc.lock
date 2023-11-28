@@ -4,41 +4,41 @@ stages:
     cmd: poetry run bimodal preprocess-data
     deps:
     - path: data/raw
-      md5: 7216c942f9f6d8d232b6f19276d06d19.dir
-      size: 170603566
-      nfiles: 18
+      md5: 1877dcccdcf73b518ef8b1649a2c5574.dir
+      size: 231685791
+      nfiles: 26
     - path: python/src/bimodal/preprocessing.py
-      md5: 7449925902027b1c22ed32b2cc186a9f
-      size: 4231
+      md5: 765bb67690c3d3970c23db51fad36f8a
+      size: 4151
     outs:
     - path: data/counter_data.parquet
-      md5: 49dd59cdd4800f3d1d31cd5d7d669c60
-      size: 5312497
+      md5: 2444ed82176db4d8ace5be0602a15a44
+      size: 5930943
     - path: data/weather_rain.parquet
-      md5: 2eb17b3be272e8a248fb8d83351aea1b
-      size: 13725
+      md5: 14336020d11bf0c6aaf26287e2a9e86f
+      size: 259605
     - path: data/weather_temp.parquet
-      md5: baef52ab1f8ae00fc3606745baee9bc8
-      size: 524729
+      md5: aa36d652ad400d90e3593b80b08022df
+      size: 544828
     - path: data/weather_wind.parquet
-      md5: 01f8cb4c3e91b75927514df8afc358c1
-      size: 535929
+      md5: e29072fc88b9b1e347894b5df0e3733a
+      size: 537584
   build-db:
     cmd: poetry run bimodal build-db data/
     deps:
     - path: data/counter_data.parquet
-      md5: 49dd59cdd4800f3d1d31cd5d7d669c60
-      size: 5312497
+      md5: 2444ed82176db4d8ace5be0602a15a44
+      size: 5930943
     - path: data/weather_rain.parquet
-      md5: 2eb17b3be272e8a248fb8d83351aea1b
-      size: 13725
+      md5: 14336020d11bf0c6aaf26287e2a9e86f
+      size: 259605
     - path: data/weather_temp.parquet
-      md5: baef52ab1f8ae00fc3606745baee9bc8
-      size: 524729
+      md5: aa36d652ad400d90e3593b80b08022df
+      size: 544828
     - path: data/weather_wind.parquet
-      md5: 01f8cb4c3e91b75927514df8afc358c1
-      size: 535929
+      md5: e29072fc88b9b1e347894b5df0e3733a
+      size: 537584
     outs:
     - path: data/db.sqlite
-      md5: b39a999e4ef9885c8bf2783ce673e859
-      size: 87625728
+      md5: 8152a03b0b524fc02b5f76d5234d1111
+      size: 89698304
