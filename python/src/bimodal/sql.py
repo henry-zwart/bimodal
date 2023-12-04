@@ -24,21 +24,13 @@ CREATE TABLE IF NOT EXISTS wind (
     speed_ms FLOAT NOT NULL,
     direction_std FLOAT,
     speed_std FLOAT,
-    period FLOAT NOT NULL,
-    year INTEGER NOT NULL,
-    month INTEGER NOT NULL,
-    day INTEGER NOT NULL,
-    hour INTEGER NOT NULL
+    period FLOAT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS rain (
     rain_record_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     record_time TEXT NOT NULL,
-    amount FLOAT NOT NULL,
-    year INTEGER NOT NULL,
-    month INTEGER NOT NULL,
-    day INTEGER NOT NULL,
-    hour INTEGER NOT NULL
+    amount FLOAT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS temperature (
@@ -47,11 +39,7 @@ CREATE TABLE IF NOT EXISTS temperature (
     temp_max_c FLOAT,
     temp_min_c FLOAT,
     temp_avg_c FLOAT,
-    rel_humidity_perc INTEGER,
-    year INTEGER NOT NULL,
-    month INTEGER NOT NULL,
-    day INTEGER NOT NULL,
-    hour INTEGER NOT NULL
+    rel_humidity_perc INTEGER
 );
 """
 
@@ -83,24 +71,16 @@ INSERT INTO wind
     speed_ms,
     direction_std,
     speed_std,
-    period,
-    year,
-    month,
-    day,
-    hour
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    period
+) VALUES (?, ?, ?, ?, ?, ?)
 """
 
 INSERT_RAIN = """
 INSERT INTO rain
 (
     record_time,
-    amount,
-    year,
-    month,
-    day,
-    hour
-) VALUES (?, ?, ?, ?, ?, ?)
+    amount
+) VALUES (?, ?)
 """
 
 INSERT_TEMPERATURE = """
@@ -110,10 +90,6 @@ INSERT INTO temperature
     temp_max_c,
     temp_min_c,
     temp_avg_c,
-    rel_humidity_perc,
-    year,
-    month,
-    day,
-    hour
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    rel_humidity_perc
+) VALUES (?, ?, ?, ?, ?)
 """

@@ -9,13 +9,29 @@ stages:
       - data/weather_rain.parquet
       - data/weather_wind.parquet
       - data/weather_temp.parquet
+      - data/wellington_holidays.parquet
 
   build-db:
     cmd: poetry run bimodal build-db data/
     deps:
+      - python/src/bimodal/database.py
       - data/counter_data.parquet
       - data/weather_rain.parquet
       - data/weather_wind.parquet
       - data/weather_temp.parquet
+      - data/wellington_holidays.parquet
     outs:
       - data/db.sqlite
+
+  build-datasets:
+    cmd: poetry run bimodal build-datasets data/
+    deps:
+      - python/src/bimodal/datasets.py
+      - data/counter_data.parquet
+      - data/weather_rain.parquet
+      - data/weather_wind.parquet
+      - data/weather_temp.parquet
+      - data/wellington_holidays.parquet
+    outs:
+      - data/dataset_daily_counts.parquet
+      - data/dataset_hourly_counts.parquet

@@ -1,9 +1,21 @@
 import datetime
 from pathlib import Path
 
+import holidays
 import polars as pl
 
 from . import config
+
+
+def preprocess_holidays(save_dir: Path):
+    welly_holidays = holidays.NZ(
+        years=[2018, 2019, 2020, 2021, 2022, 2023], subdiv="WGN"
+    )
+    (
+        pl.DataFrame(
+            {"date": welly_holidays.keys(), "holiday_name": welly_holidays.values()}
+        )
+    ).write_parquet(save_dir / "wellington_holidays.parquet")
 
 
 def preprocess_counter_data(source: Path, save_dir: Path):
@@ -40,17 +52,20 @@ def preprocess_counter_data(source: Path, save_dir: Path):
             .rename(config.COUNTER_RENAME_MAPPING)
         )
         dfs.append(cleaned)
+
     (
         pl.concat(dfs)
         .with_columns(
-            pl.col("record_time").str.to_datetime() + datetime.timedelta(hours=1)
+            pl.col("record_time")
+            .str.to_datetime()
+            .dt.replace_time_zone(None)  # + datetime.timedelta(hours=1)
         )
         .with_columns(
             pl.col("record_time").dt.year().alias("year"),
-            pl.col("record_time").dt.month().alias("month"),
+            (pl.col("record_time").dt.month() - 1).alias("month"),
             pl.col("record_time").dt.day().alias("day"),
             pl.col("record_time").dt.hour().alias("hour"),
-            pl.col("record_time").dt.weekday().alias("weekday"),
+            (pl.col("record_time").dt.weekday() - 1).alias("weekday"),
         )
         .sort(by=[pl.col("site_name"), pl.col("record_time")])
     ).write_parquet(save_dir / "counter_data.parquet")
@@ -78,7 +93,20 @@ def split_weather_file(filepath: Path):
                 buff.append(line)
 
 
-def join_biannual_split_weather_files(directory: Path):
+def join_split_weather_files(directory: Path):
+    """
+    Loads individual-year files and concatenates.
+
+    NIWA datetimes are different to how we expect. They refer to the datetime at the end
+    of an observation period, and also include the 0th hour of the year + the 0th hour
+    of the next year. We modify this to fit our expected format (used by the bike
+    counts), by:
+
+        1. Decrementing each datetime by 1 hour
+        2. Dropping the first observation (which refers to the last observation of the
+            previous year)
+    """
+
     dfs = {}
 
     for weather_type in config.WEATHER_TYPES:
@@ -91,10 +119,17 @@ def join_biannual_split_weather_files(directory: Path):
                         dtypes={"Period(Hrs)": pl.Float64},
                         try_parse_dates=True,
                     )
+                    .with_columns(
+                        pl.col("Date(NZST)")
+                        .str.to_datetime("%Y%m%d:%H%M")
+                        .dt.offset_by("-1h")
+                    )
+                    .sort(by=pl.col("Date(NZST)"))
+                    .tail(-1)
                     for p in directory.glob(f"*-{weather_type}.csv")
                 ]
             )
-            .with_columns(pl.col("Date(NZST)").str.to_datetime("%Y%m%d:%H%M"))
+            # .with_columns(pl.col("Date(NZST)").str.to_datetime("%Y%m%d:%H%M"))
             .sort(by=pl.col("Date(NZST)"))
         )
         dfs[weather_type] = df
@@ -106,17 +141,10 @@ def preprocess_weather_data(from_dir: Path, save_dir: Path):
     for p in from_dir.glob("weather-*"):
         split_weather_file(p)
 
-    dfs = join_biannual_split_weather_files(from_dir)
+    dfs = join_split_weather_files(from_dir)
     for weather_type, df in dfs.items():
-        df = (
-            df.drop(config.WEATHER_DROP_COLS[weather_type])
-            .rename(config.WEATHER_RENAME_MAPPING[weather_type])
-            .with_columns(
-                pl.col("record_time").dt.year().alias("year"),
-                pl.col("record_time").dt.month().alias("month"),
-                pl.col("record_time").dt.day().alias("day"),
-                pl.col("record_time").dt.hour().alias("hour"),
-            )
+        df = df.drop(config.WEATHER_DROP_COLS[weather_type]).rename(
+            config.WEATHER_RENAME_MAPPING[weather_type]
         )
         df.write_parquet(save_dir / f"weather_{weather_type}.parquet")
 

@@ -1,4 +1,7 @@
+from datetime import date
 from pathlib import Path
+
+INITIAL_DATE = date(2018, 1, 1)
 
 RAW_DATA_PATH = Path("data/raw")
 CLEAN_DATA_PATH = Path("data")

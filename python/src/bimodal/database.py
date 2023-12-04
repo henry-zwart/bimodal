@@ -44,22 +44,7 @@ class Database:
         with sqlite3.connect(self.path) as conn:
             conn.executemany(
                 sql.INSERT_SITE,
-                (
-                    df.drop(
-                        [
-                            "record_time",
-                            "count_incoming",
-                            "count_outgoing",
-                            "year",
-                            "month",
-                            "day",
-                            "hour",
-                            "weekday",
-                        ]
-                    )
-                    .unique()
-                    .rows()
-                ),
+                (df.select("site_id", "site_name").unique().rows()),
             )
 
     def add_counts(self, df: pl.DataFrame):

@@ -8,37 +8,74 @@ stages:
       size: 231685791
       nfiles: 26
     - path: python/src/bimodal/preprocessing.py
-      md5: 765bb67690c3d3970c23db51fad36f8a
-      size: 4151
+      md5: 82bce757e9df5151c7c4be1b9d23c79e
+      size: 5035
     outs:
     - path: data/counter_data.parquet
-      md5: 2444ed82176db4d8ace5be0602a15a44
-      size: 5930943
+      md5: 17093b919d3366f5bbea6282492d9b41
+      size: 3878480
     - path: data/weather_rain.parquet
-      md5: 14336020d11bf0c6aaf26287e2a9e86f
-      size: 259605
+      md5: 362d2448d2b1461dd0ebee67d9978fed
+      size: 231258
     - path: data/weather_temp.parquet
-      md5: aa36d652ad400d90e3593b80b08022df
-      size: 544828
+      md5: c656f43a7c269b2cbd940c3873814b40
+      size: 516231
     - path: data/weather_wind.parquet
-      md5: e29072fc88b9b1e347894b5df0e3733a
-      size: 537584
+      md5: 11c6a952b90baaf81b703a4e23263fa1
+      size: 509038
+    - path: data/wellington_holidays.parquet
+      md5: 70ac7128f2938b40c4c90dfe775b91ec
+      size: 1181
   build-db:
     cmd: poetry run bimodal build-db data/
     deps:
     - path: data/counter_data.parquet
-      md5: 2444ed82176db4d8ace5be0602a15a44
-      size: 5930943
+      md5: 17093b919d3366f5bbea6282492d9b41
+      size: 3878480
     - path: data/weather_rain.parquet
-      md5: 14336020d11bf0c6aaf26287e2a9e86f
-      size: 259605
+      md5: 362d2448d2b1461dd0ebee67d9978fed
+      size: 231258
     - path: data/weather_temp.parquet
-      md5: aa36d652ad400d90e3593b80b08022df
-      size: 544828
+      md5: c656f43a7c269b2cbd940c3873814b40
+      size: 516231
     - path: data/weather_wind.parquet
-      md5: e29072fc88b9b1e347894b5df0e3733a
-      size: 537584
+      md5: 11c6a952b90baaf81b703a4e23263fa1
+      size: 509038
+    - path: data/wellington_holidays.parquet
+      md5: 70ac7128f2938b40c4c90dfe775b91ec
+      size: 1181
+    - path: python/src/bimodal/database.py
+      md5: 0bb748a8cb3e3a7b4d362a9081d40b34
+      size: 1992
     outs:
     - path: data/db.sqlite
-      md5: 8152a03b0b524fc02b5f76d5234d1111
-      size: 89698304
+      md5: 932e4c5f8c1b7a47160f8549e49929d5
+      size: 80658432
+  build-datasets:
+    cmd: poetry run bimodal build-datasets data/
+    deps:
+    - path: data/counter_data.parquet
+      md5: 17093b919d3366f5bbea6282492d9b41
+      size: 3878480
+    - path: data/weather_rain.parquet
+      md5: 362d2448d2b1461dd0ebee67d9978fed
+      size: 231258
+    - path: data/weather_temp.parquet
+      md5: c656f43a7c269b2cbd940c3873814b40
+      size: 516231
+    - path: data/weather_wind.parquet
+      md5: 11c6a952b90baaf81b703a4e23263fa1
+      size: 509038
+    - path: data/wellington_holidays.parquet
+      md5: 70ac7128f2938b40c4c90dfe775b91ec
+      size: 1181
+    - path: python/src/bimodal/datasets.py
+      md5: 72f035a01430c172d4dc731d68111920
+      size: 4417
+    outs:
+    - path: data/dataset_daily_counts.parquet
+      md5: dba0079ae0bd9a1bf5ff731b10396d0a
+      size: 228936
+    - path: data/dataset_hourly_counts.parquet
+      md5: b9a9bae01a71d66b5ea8638e554d6afe
+      size: 11512237

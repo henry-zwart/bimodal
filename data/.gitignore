@@ -3,3 +3,5 @@
 /weather_wind.parquet
 /weather_temp.parquet
 /db.sqlite
+/dataset_daily_counts.parquet
+/dataset_hourly_counts.parquet
