@@ -1,9 +1,8 @@
-from datetime import date, datetime
 from pathlib import Path
 
 import polars as pl
 
-import bimodal.config as config
+from bimodal import config
 
 
 def load_count_data(assets_path: Path) -> pl.DataFrame:
